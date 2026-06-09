@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Moonlighters
 
-## Getting Started
+A calm, judgment-free education platform for night shift workers — honest information
+about your body, mind, and life on the night shift, minus the shame. Built for India's
+night workers.
 
-First, run the development server:
+This is **Phase 1: the Education MVP** — a landing page, the "Taboo or Not" interactive
+feature, an MDX-backed article library, and an email waitlist. Community and a wellness-kit
+shop come in later phases; the architecture leaves hooks for them.
+
+---
+
+## Tech stack
+
+- **Next.js 16** (App Router) + **TypeScript**
+- **Tailwind CSS v4** (dark-first; theme tokens live in `app/globals.css`)
+- **MDX** for articles (`@next/mdx`)
+- **Motion** (`motion/react`) for subtle animation
+- Fraunces (serif headings) + Inter (body) via `next/font`
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm run start    # serve the production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/                    # routes (App Router)
+  page.tsx              # landing page
+  library/              # article index + [slug] article pages
+  api/waitlist/         # waitlist POST endpoint (stubbed storage)
+  not-found.tsx         # on-brand 404
+components/
+  brand/                # logo, film grain, glow, "always on shift" element
+  taboo/                # Taboo or Not flip-card + grid
+  library/              # article card
+  sections/             # landing-page sections
+  ui/                   # nav, footer, button, container
+  motion/               # Reveal (gentle fade-in)
+content/
+  taboo-cards.ts        # the flip-card data — edit here
+  articles/*.mdx        # the articles — add/edit here
+lib/
+  types.ts              # shared types + the 5 article categories
+  content.ts            # typed MDX loader
+  waitlist.ts           # email validation + storage stub
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Editing content (no code required)
 
-## Learn More
+**Add a "Taboo or Not" card:** open `content/taboo-cards.ts` and add an object with a
+unique `id`, the `myth`, the `truth`, and a one-line `science` note.
 
-To learn more about Next.js, take a look at the following resources:
+**Add an article:** drop a new `.mdx` file in `content/articles/`. The filename becomes
+the URL slug. Start it with a `metadata` export, then write the body in Markdown/MDX:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```mdx
+export const metadata = {
+  title: "Your Title",
+  category: "Sleep & Body", // must be one of the 5 categories in lib/types.ts
+  excerpt: "One-sentence summary for the cards.",
+  date: "2026-06-10",        // ISO date, used for sorting (newest first)
+  readingTime: "5 min",      // optional
+};
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Your article body goes here. **Markdown** works, and so do React components.
+```
 
-## Deploy on Vercel
+The five categories (and their display order) are defined in `lib/types.ts`
+(`ARTICLE_CATEGORIES`). Add a new one there if you need it.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Design language
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The whole site aims for the feeling of **a single desk lamp lit at 3am**: midnight-indigo
+base, moonlight blue/lavender text, and one warm amber accent used sparingly. All color and
+font tokens live in `app/globals.css` (`:root` + the `@theme inline` block). Motion is slow
+and gentle, and everything respects `prefers-reduced-motion`.
+
+## Where the later-phase hooks are
+
+- **Waitlist storage (Phase 4):** `lib/waitlist.ts` → `storeSignup()` is a stub that just
+  logs. Replace its body with a real email provider (Resend, ConvertKit) or database
+  (Supabase/Postgres). The API contract (`POST /api/waitlist { email } -> { ok }`) shouldn't
+  need to change.
+- **Phase 2 (community):** planned "Night Notes" wall, Resources hub, article reactions.
+- **Phase 3 (commerce):** Wellness Kits showcase + B2B employer inquiries.
+
+See `docs/superpowers/specs/` and `docs/superpowers/plans/` for the full design and build
+plan.
