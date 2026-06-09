@@ -1,26 +1,103 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
+/*
+  Moonlighters — the "3am desk lamp" palette.
+  Base: midnight indigo / near-black charcoal.
+  Text: moonlight pale-blue + lavender.
+  Accent: ONE warm amber, used sparingly (the lamp).
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --midnight: #0b0d1a; /* near-black indigo base */
+  --charcoal: #111322; /* slightly lifted surface */
+  --surface: #161a2e; /* cards / raised panels */
+  --border: #232845; /* hairline borders */
+
+  --moonlight: #c7d2f0; /* primary text, pale blue */
+  --lavender: #9aa3c7; /* secondary text */
+  --muted: #6b7299; /* tertiary / captions */
+
+  --amber: #f4b860; /* the lamp — accent */
+  --amber-soft: #f6c97f;
+
+  --background: var(--midnight);
+  --foreground: var(--moonlight);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-midnight: var(--midnight);
+  --color-charcoal: var(--charcoal);
+  --color-surface: var(--surface);
+  --color-border-soft: var(--border);
+
+  --color-moonlight: var(--moonlight);
+  --color-lavender: var(--lavender);
+  --color-muted: var(--muted);
+
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+
+  --font-serif: var(--font-fraunces); /* editorial headings */
+  --font-sans: var(--font-inter); /* body */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--midnight);
+  color: var(--moonlight);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  /* Soft moonlight glows, like distant city lights, layered over the base. */
+  background-image:
+    radial-gradient(
+      60rem 60rem at 75% -10%,
+      rgba(124, 138, 214, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      50rem 50rem at 10% 110%,
+      rgba(244, 184, 96, 0.06),
+      transparent 60%
+    );
+  background-attachment: fixed;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+/* Comfortable, magazine-like reading colors for article prose. */
+.prose-night {
+  --tw-prose-body: var(--moonlight);
+  --tw-prose-headings: var(--moonlight);
+  --tw-prose-links: var(--amber);
+  --tw-prose-bold: var(--moonlight);
+  --tw-prose-quotes: var(--lavender);
+  --tw-prose-quote-borders: var(--amber);
+  --tw-prose-bullets: var(--muted);
+  --tw-prose-hr: var(--border);
+  --tw-prose-counters: var(--muted);
+}
+
+/* Respect tired eyes and motion sensitivity. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+::selection {
+  background: rgba(244, 184, 96, 0.25);
 }
