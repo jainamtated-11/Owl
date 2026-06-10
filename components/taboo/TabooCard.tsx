@@ -4,10 +4,10 @@ import { useState } from "react";
 import type { TabooCard as TabooCardData } from "@/lib/types";
 
 /**
- * A single tappable flip-card. Front shows the myth; tap/click/Enter flips it to
- * reveal the truth + the science. Built as a real <button> so it's keyboard
- * accessible and announced correctly. The 3D flip is pure CSS so it degrades
- * gracefully under prefers-reduced-motion (the global rule zeroes the duration).
+ * A tappable flip-card framed as a verdict. Front states the common claim; tap
+ * to flip to the verdict ("FALSE") plus the cited evidence. Real <button> for
+ * keyboard + screen-reader support; the CSS 3D flip degrades to an instant
+ * swap under prefers-reduced-motion (global rule zeroes the duration).
  */
 export function TabooCard({ card }: { card: TabooCardData }) {
   const [flipped, setFlipped] = useState(false);
@@ -17,32 +17,32 @@ export function TabooCard({ card }: { card: TabooCardData }) {
       type="button"
       onClick={() => setFlipped((f) => !f)}
       aria-pressed={flipped}
-      className="group h-64 w-full [perspective:1200px] focus-visible:outline-none"
+      className="group h-64 w-full text-left [perspective:1200px] focus-visible:outline-none"
     >
       <div
-        className="relative h-full w-full rounded-2xl transition-transform duration-700 ease-out [transform-style:preserve-3d] group-focus-visible:ring-2 group-focus-visible:ring-amber/70 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-midnight rounded-2xl"
+        className="relative h-full w-full transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d]"
         style={{ transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)" }}
       >
-        {/* Front — the myth */}
-        <div className="absolute inset-0 flex flex-col justify-between rounded-2xl border border-border-soft bg-surface/80 p-6 text-left [backface-visibility:hidden]">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted">
-            Taboo or not?
-          </span>
-          <p className="font-serif text-xl leading-snug text-moonlight">
+        {/* Front — the claim */}
+        <div className="absolute inset-0 flex flex-col justify-between rounded-xl border border-line bg-surface p-6 [backface-visibility:hidden] group-hover:border-line-strong">
+          <span className="label">The claim</span>
+          <p className="text-lg font-medium leading-snug text-ink">
             “{card.myth}”
           </p>
-          <span className="text-sm text-amber">Tap to reveal →</span>
+          <span className="data text-xs text-amber">true or false? →</span>
         </div>
 
-        {/* Back — the truth + science */}
-        <div className="absolute inset-0 flex flex-col justify-between rounded-2xl border border-amber/30 bg-charcoal p-6 text-left [transform:rotateY(180deg)] [backface-visibility:hidden]">
-          <span className="text-xs uppercase tracking-[0.2em] text-amber">
-            Not true
+        {/* Back — verdict + evidence */}
+        <div className="absolute inset-0 flex flex-col justify-between rounded-xl border border-amber/35 bg-night-2 p-6 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+          <span className="data text-xs font-semibold uppercase tracking-[0.14em] text-amber">
+            False
           </span>
-          <p className="font-serif text-lg leading-snug text-moonlight">
+          <p className="text-base font-medium leading-snug text-ink">
             {card.truth}
           </p>
-          <p className="text-sm leading-relaxed text-lavender">{card.science}</p>
+          <p className="border-t border-line pt-3 text-[0.8125rem] leading-relaxed text-ink-2">
+            {card.science}
+          </p>
         </div>
       </div>
     </button>

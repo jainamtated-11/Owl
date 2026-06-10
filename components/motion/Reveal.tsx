@@ -1,13 +1,11 @@
-"use client";
-
-import { motion } from "motion/react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 /**
- * Slow, gentle fade-and-rise as content enters the viewport. Deliberately
- * understated — the brand motion is "breathing," never jarring. Users with
- * prefers-reduced-motion get the content with no transform (handled by the
- * global CSS rule that zeroes durations).
+ * Entrance wrapper. Content is visible at rest; the `.reveal-enter` class adds a
+ * single on-load fade-and-rise (defined in globals.css) that completes
+ * regardless of scroll position or JS, and is disabled under reduced motion.
+ *
+ * Server component on purpose — no client JS, and nothing can ship blank.
  */
 export function Reveal({
   children,
@@ -18,15 +16,11 @@ export function Reveal({
   delay?: number;
   className?: string;
 }) {
+  const style: CSSProperties =
+    delay > 0 ? { animationDelay: `${delay}s` } : {};
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.9, ease: "easeOut", delay }}
-    >
+    <div className={`reveal-enter ${className}`} style={style}>
       {children}
-    </motion.div>
+    </div>
   );
 }

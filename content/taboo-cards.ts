@@ -17,7 +17,7 @@ export const tabooCards: TabooCard[] = [
     myth: "You just need more coffee to handle nights.",
     truth: "Caffeine helps, but timing and light matter far more.",
     science:
-      "Caffeine has a ~5-hour half-life — a coffee at 4am can wreck your morning sleep. Strategic light exposure shifts your body clock more reliably.",
+      "Caffeine has a ~5-hour half-life, so a coffee at 4am can wreck your morning sleep. Strategic light exposure shifts your body clock more reliably.",
   },
   {
     id: "weekend-catchup",
@@ -31,7 +31,7 @@ export const tabooCards: TabooCard[] = [
     myth: "Night workers are antisocial or unfriendly.",
     truth: "They're on a different clock, not a different planet.",
     science:
-      "Social withdrawal among shift workers is usually circadian misalignment and fatigue — not personality. Protected social time helps more than willpower.",
+      "Social withdrawal among shift workers is usually circadian misalignment and fatigue, not personality. Protected social time helps more than willpower.",
   },
   {
     id: "tough-it-out",
@@ -42,7 +42,7 @@ export const tabooCards: TabooCard[] = [
   },
   {
     id: "no-rights",
-    myth: "Night shift is just part of the job — you have no say.",
+    myth: "Night shift is just part of the job, so you have no say.",
     truth: "Night workers have specific protections and entitlements.",
     science:
       "Many jurisdictions mandate night-shift allowances, health checks, rest breaks, and caps on consecutive nights. Knowing them is the first step to using them.",

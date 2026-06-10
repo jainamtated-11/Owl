@@ -7,19 +7,19 @@ const links = [
   { href: "/library", label: "Library" },
 ];
 
-/** Responsive top navigation. Sticky, with a subtle blurred night backdrop. */
+/** Top navigation. Solid night, single hairline rule — no glass, no blur. */
 export function SiteNav() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border-soft/60 bg-midnight/70 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-line bg-night">
       <Container className="flex h-16 items-center justify-between">
         <Logo />
-        <nav className="flex items-center gap-6">
-          <ul className="hidden items-center gap-6 sm:flex">
+        <nav className="flex items-center gap-7">
+          <ul className="hidden items-center gap-7 sm:flex">
             {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-sm text-lavender transition-colors hover:text-moonlight"
+                  className="text-sm text-ink-2 transition-colors hover:text-ink"
                 >
                   {link.label}
                 </a>

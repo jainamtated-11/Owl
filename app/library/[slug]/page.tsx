@@ -38,24 +38,24 @@ export default async function ArticlePage({
     <Container className="py-16 sm:py-20">
       <Link
         href="/library"
-        className="text-sm text-lavender transition-colors hover:text-amber"
+        className="data text-xs text-muted transition-colors hover:text-amber"
       >
-        ← Back to the Library
+        ← back to the library
       </Link>
 
-      <header className="mt-8 max-w-2xl space-y-4">
-        <p className="text-xs uppercase tracking-[0.2em] text-amber">
-          {meta.category}
-        </p>
-        <h1 className="font-serif text-4xl leading-tight text-moonlight sm:text-5xl">
+      <header className="mt-8 max-w-2xl border-b border-line pb-8">
+        <div className="flex items-center gap-3">
+          <span className="label">{meta.category}</span>
+          {meta.readingTime ? (
+            <span className="data text-xs text-muted">· {meta.readingTime}</span>
+          ) : null}
+        </div>
+        <h1 className="mt-4 text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.08] text-ink">
           {meta.title}
         </h1>
-        {meta.readingTime ? (
-          <p className="text-sm text-muted">{meta.readingTime} read</p>
-        ) : null}
       </header>
 
-      <article className="prose prose-night mt-12 max-w-2xl">
+      <article className="prose prose-night mt-10 max-w-2xl">
         <Content />
       </article>
     </Container>

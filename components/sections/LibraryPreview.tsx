@@ -1,35 +1,28 @@
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
-import { ArticleCard } from "@/components/library/ArticleCard";
+import { ArticleRow } from "@/components/library/ArticleRow";
 import { Reveal } from "@/components/motion/Reveal";
 import { getAllArticles } from "@/lib/content";
 
-/** Landing-page preview of the education library (latest three articles). */
+/** Landing preview of the library, as an editorial index. */
 export async function LibraryPreview() {
   const articles = (await getAllArticles()).slice(0, 3);
 
   return (
-    <section className="py-16 sm:py-24">
+    <section className="border-b border-line py-20 sm:py-28">
       <Container>
         <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.2em] text-amber">
-              The Library
-            </p>
-            <h2 className="mt-4 font-serif text-3xl text-moonlight sm:text-4xl">
-              Read up before your next shift.
-            </h2>
-          </div>
+          <h2 className="text-[clamp(1.8rem,4vw,2.6rem)] font-bold leading-tight text-ink">
+            Read up before your next shift.
+          </h2>
           <ButtonLink href="/library" variant="ghost">
-            Browse all
+            Open the library
           </ButtonLink>
         </Reveal>
-        <Reveal delay={0.1}>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
-              <ArticleCard key={article.slug} article={article} />
-            ))}
-          </div>
+        <Reveal delay={0.1} className="border-b border-line">
+          {articles.map((article) => (
+            <ArticleRow key={article.slug} article={article} />
+          ))}
         </Reveal>
       </Container>
     </section>

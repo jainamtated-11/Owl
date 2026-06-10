@@ -3,26 +3,26 @@ import { TabooGrid } from "@/components/taboo/TabooGrid";
 import { Reveal } from "@/components/motion/Reveal";
 import { tabooCards } from "@/content/taboo-cards";
 
-/** Landing-page preview of the "Taboo or Not" feature (first three cards). */
+/** "Taboo or Not" — claims you've heard, checked against the evidence. */
 export function TabooPreview() {
   return (
-    <section id="taboo" className="scroll-mt-20 py-16 sm:py-24">
+    <section id="taboo" className="scroll-mt-16 border-b border-line py-20 sm:py-28">
       <Container>
-        <Reveal className="mb-10 max-w-2xl">
-          <p className="text-xs uppercase tracking-[0.2em] text-amber">
-            Taboo or Not
-          </p>
-          <h2 className="mt-4 font-serif text-3xl text-moonlight sm:text-4xl">
-            The myths about night work, flipped.
-          </h2>
-          <p className="mt-4 text-lavender">
-            Tap a card to turn a common stigma into the truth — and the science
-            behind it.
-          </p>
+        <Reveal className="mb-12 flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-xl">
+            <h2 className="text-[clamp(1.8rem,4vw,2.6rem)] font-bold leading-tight text-ink">
+              Taboo, or not?
+            </h2>
+            <p className="mt-3 max-w-md text-ink-2">
+              Six things night workers get told. Tap each to see the verdict,
+              and the evidence behind it.
+            </p>
+          </div>
+          <span className="data hidden text-xs text-muted sm:block">
+            {String(tabooCards.length).padStart(2, "0")} claims · tap to flip
+          </span>
         </Reveal>
-        <Reveal delay={0.1}>
-          <TabooGrid cards={tabooCards.slice(0, 3)} />
-        </Reveal>
+        <TabooGrid cards={tabooCards} />
       </Container>
     </section>
   );

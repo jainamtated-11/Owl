@@ -8,7 +8,7 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 /**
  * Email capture form. Validates client-side, POSTs to /api/waitlist, and shows
- * loading / success / error states. On success it swaps to a warm confirmation.
+ * loading / success / error states. On success it swaps to a confirmation.
  */
 export function WaitlistForm() {
   const [email, setEmail] = useState("");
@@ -41,9 +41,9 @@ export function WaitlistForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-amber/30 bg-charcoal p-6 text-center">
-        <p className="font-serif text-xl text-moonlight">You&apos;re on the list.</p>
-        <p className="mt-2 text-sm text-lavender">
+      <div className="rounded-xl border border-amber/35 bg-night-2 p-6 text-center">
+        <p className="text-lg font-semibold text-ink">You&apos;re on the list.</p>
+        <p className="mt-2 text-sm text-ink-2">
           We&apos;ll reach out when there&apos;s something worth your while —
           never spam, never at the wrong hour.
         </p>
@@ -52,11 +52,7 @@ export function WaitlistForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      noValidate
-      className="flex flex-col gap-3 sm:flex-row"
-    >
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3 sm:flex-row">
       <label htmlFor="waitlist-email" className="sr-only">
         Email address
       </label>
@@ -72,16 +68,13 @@ export function WaitlistForm() {
           if (status === "error") setStatus("idle");
         }}
         aria-invalid={status === "error"}
-        className="w-full flex-1 rounded-full border border-border-soft bg-surface/70 px-5 py-2.5 text-sm text-moonlight placeholder:text-muted focus-visible:border-amber/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber/40"
+        className="w-full flex-1 rounded-md border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-muted focus-visible:border-amber focus-visible:outline-none"
       />
       <Button type="submit" disabled={status === "submitting"}>
         {status === "submitting" ? "Joining…" : "Join the waitlist"}
       </Button>
       {message ? (
-        <p
-          role="alert"
-          className="basis-full text-sm text-amber-soft sm:order-last"
-        >
+        <p role="alert" className="basis-full text-sm text-amber sm:order-last">
           {message}
         </p>
       ) : null}
