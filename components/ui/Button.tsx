@@ -1,15 +1,21 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
-type Variant = "primary" | "ghost";
+type Variant = "primary" | "pill" | "ghost" | "onTeal";
 
 const base =
-  "inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium transition-colors duration-200 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50";
+  "inline-flex items-center justify-center font-[600] text-sm transition-colors duration-200 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
-  // The amber CTA is the single signal — used sparingly.
-  primary: "bg-amber text-night hover:bg-amber-deep",
-  ghost: "border border-line text-ink hover:border-line-strong hover:text-amber",
+  // violet = brand / action
+  primary: "rounded-md px-5 py-2.5 bg-violet text-night-2 hover:bg-violet-deep",
+  // hero CTA: the pill is hero-only (Superhuman rule)
+  pill: "rounded-full px-5 py-2.5 bg-violet text-night-2 hover:bg-violet-deep",
+  ghost:
+    "rounded-md px-5 py-2.5 border border-line-strong text-ink hover:border-violet hover:text-violet",
+  // inside the closing teal band
+  onTeal:
+    "rounded-md px-5 py-2.5 bg-ink text-teal-deep hover:bg-white",
 };
 
 export function Button({

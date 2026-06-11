@@ -2,25 +2,30 @@
 @plugin "@tailwindcss/typography";
 
 /*
-  Moonlighters — clinical, credible, practical.
-  Earn the dark: a cool near-neutral night, hairline structure, and ONE amber
-  signal (the lamp). No decorative glows, no glass — the palette of a precise
-  instrument read at 3am, not a moody SaaS hero. OKLCH throughout; all text AA.
+  Moonlighters — night identity, Superhuman-inspired craft.
+  Indigo-navy canvas with a violet-sky atmosphere. Three deliberate accents:
+    violet = brand / action,  teal = the closing chord,  amber = evidence/data.
+  Type is Inter Variable at sub-default weights (460/540) with tight display
+  leading — Superhuman's typographic signature. All text meets WCAG AA.
 */
 :root {
-  --night: oklch(0.165 0.012 245); /* near-black, faintly cool */
-  --night-2: oklch(0.195 0.013 245); /* section alt / deep panel */
-  --surface: oklch(0.225 0.014 245); /* raised panels, cards */
-  --surface-2: oklch(0.265 0.016 245); /* card hover / inset */
-  --line: oklch(0.32 0.016 245); /* hairline borders */
-  --line-strong: oklch(0.42 0.02 245); /* emphasized rule */
+  --night: #0f0d20; /* page canvas, deep indigo */
+  --night-2: #1b1938; /* raised sections / hero (Superhuman primary) */
+  --surface: #232149; /* cards */
+  --surface-2: #2b2858; /* card hover / inset */
+  --line: #322e4d; /* hairline borders */
+  --line-strong: #463f63; /* emphasized rule */
 
-  --ink: oklch(0.95 0.006 240); /* primary text — crisp, high contrast */
-  --ink-2: oklch(0.79 0.018 242); /* secondary text */
-  --muted: oklch(0.635 0.022 242); /* captions / tertiary (still AA on night) */
+  --ink: #f3f2f9; /* primary text */
+  --ink-2: #bcbac9; /* secondary text (Superhuman on-dark-mute) */
+  --muted: #8b88a3; /* captions / labels (AA on canvas) */
 
-  --amber: oklch(0.82 0.13 78); /* the signal — data, highlights, CTAs */
-  --amber-deep: oklch(0.74 0.135 66); /* hover / pressed */
+  --violet: #c9b4fa; /* brand / action (Superhuman violet-soft) */
+  --violet-deep: #ab8ff4; /* hover / pressed */
+  --teal-deep: #0e3030; /* closing CTA band */
+  --teal-mid: #155555; /* nested chrome in the band */
+  --on-teal-mute: #9cc2c2; /* muted text on teal */
+  --amber: #f4bd57; /* evidence / data only */
 
   --background: var(--night);
   --foreground: var(--ink);
@@ -41,13 +46,16 @@
   --color-ink-2: var(--ink-2);
   --color-muted: var(--muted);
 
+  --color-violet: var(--violet);
+  --color-violet-deep: var(--violet-deep);
+  --color-teal-deep: var(--teal-deep);
+  --color-teal-mid: var(--teal-mid);
+  --color-on-teal-mute: var(--on-teal-mute);
   --color-amber: var(--amber);
-  --color-amber-deep: var(--amber-deep);
 
-  --font-sans: var(--font-hanken); /* workhorse: headings + body, weight contrast */
+  --font-sans: var(--font-inter); /* Inter Variable — display + body */
   --font-mono: var(--font-mono-data); /* data only: clock, stats, labels */
 
-  /* Exponential ease-out for all brand motion. */
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -64,16 +72,33 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Headings carry weight, not decoration. Tight but never cramped (≥ -0.02em). */
+/* Superhuman type discipline: sub-default weight, tight leading + tracking. */
 h1,
 h2,
 h3 {
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-weight: 540;
+  letter-spacing: -0.022em;
+  line-height: 1;
   text-wrap: balance;
 }
 
-/* The data system: monospaced, tracked, for numbers and labels only. */
+/* The violet-sky atmospheric backdrop — Superhuman's hero depth medium. */
+.hero-atmosphere {
+  background-color: var(--night-2);
+  background-image:
+    radial-gradient(
+      120% 95% at 72% -10%,
+      rgba(171, 143, 244, 0.26),
+      transparent 55%
+    ),
+    radial-gradient(
+      80% 70% at 96% 4%,
+      rgba(120, 176, 235, 0.16),
+      transparent 50%
+    );
+}
+
+/* The data system: monospaced, tabular, for numbers and labels only. */
 .data {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-feature-settings: "tnum" 1;
@@ -86,11 +111,11 @@ h3 {
   color: var(--muted);
 }
 
-/* Article prose — credible reading, cool ink, amber only on links/quote rules. */
+/* Article prose — links in violet, quote rule in amber (evidence). */
 .prose-night {
   --tw-prose-body: var(--ink-2);
   --tw-prose-headings: var(--ink);
-  --tw-prose-links: var(--amber);
+  --tw-prose-links: var(--violet);
   --tw-prose-bold: var(--ink);
   --tw-prose-quotes: var(--ink-2);
   --tw-prose-quote-borders: var(--amber);
@@ -100,24 +125,6 @@ h3 {
   text-wrap: pretty;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
-}
-
-/*
-  Entrance motion. Content is VISIBLE at rest (opacity 1); the animation only
-  enhances on load. No scroll-gating — nothing ships blank in a headless render,
-  a hidden tab, or without JS. Reduced-motion disables it entirely.
-*/
 @media (prefers-reduced-motion: no-preference) {
   .reveal-enter {
     animation: reveal-enter 0.7s var(--ease-out-quint) both;
@@ -134,12 +141,25 @@ h3 {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
 ::selection {
-  background: oklch(0.82 0.13 78 / 0.28);
+  background: rgba(201, 180, 250, 0.3);
   color: var(--ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--amber);
+  outline: 2px solid var(--violet);
   outline-offset: 2px;
 }

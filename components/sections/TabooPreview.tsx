@@ -10,7 +10,7 @@ export function TabooPreview() {
       <Container>
         <Reveal className="mb-12 flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-xl">
-            <h2 className="text-[clamp(1.8rem,4vw,2.6rem)] font-bold leading-tight text-ink">
+            <h2 className="text-[clamp(1.8rem,4vw,2.6rem)] text-ink">
               Taboo, or not?
             </h2>
             <p className="mt-3 max-w-md text-ink-2">

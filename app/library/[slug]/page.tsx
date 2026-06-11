@@ -38,7 +38,7 @@ export default async function ArticlePage({
     <Container className="py-16 sm:py-20">
       <Link
         href="/library"
-        className="data text-xs text-muted transition-colors hover:text-amber"
+        className="data text-xs text-muted transition-colors hover:text-violet"
       >
         ← back to the library
       </Link>
@@ -50,7 +50,7 @@ export default async function ArticlePage({
             <span className="data text-xs text-muted">· {meta.readingTime}</span>
           ) : null}
         </div>
-        <h1 className="mt-4 text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.08] text-ink">
+        <h1 className="mt-4 text-[clamp(2rem,4.5vw,3rem)] leading-[1.04] text-ink">
           {meta.title}
         </h1>
       </header>

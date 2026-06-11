@@ -14,7 +14,7 @@ export function ArticleRow({ article }: { article: ArticleSummary }) {
     >
       <span className="label pt-1">{article.category}</span>
       <div className="space-y-1.5">
-        <h3 className="text-lg font-semibold leading-snug text-ink transition-colors group-hover:text-amber">
+        <h3 className="text-lg font-[540] leading-snug text-ink transition-colors group-hover:text-violet">
           {article.title}
         </h3>
         <p className="max-w-prose text-sm leading-relaxed text-ink-2">

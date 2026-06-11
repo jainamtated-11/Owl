@@ -16,7 +16,7 @@ export default async function LibraryPage() {
   return (
     <Container className="py-16 sm:py-20">
       <header className="max-w-2xl">
-        <h1 className="text-[clamp(2.2rem,5vw,3.4rem)] font-bold leading-[1.05] text-ink">
+        <h1 className="text-[clamp(2.2rem,5vw,3.4rem)] leading-[1.02] text-ink">
           Everything they never told you about working nights.
         </h1>
         <p className="mt-5 text-lg leading-relaxed text-ink-2">
@@ -32,7 +32,7 @@ export default async function LibraryPage() {
           return (
             <section key={category} aria-labelledby={`cat-${category}`}>
               <div className="flex items-baseline justify-between border-b border-line-strong pb-3">
-                <h2 id={`cat-${category}`} className="text-xl font-semibold text-ink">
+                <h2 id={`cat-${category}`} className="text-xl font-[540] text-ink">
                   {category}
                 </h2>
                 <span className="data text-xs text-muted">

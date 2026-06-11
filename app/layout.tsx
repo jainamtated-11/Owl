@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteNav } from "@/components/ui/SiteNav";
 import { SiteFooter } from "@/components/ui/SiteFooter";
 
-// One workhorse family, used across headings and body with weight contrast.
-const hanken = Hanken_Grotesk({
-  variable: "--font-hanken",
+// Inter Variable — Superhuman's recommended substitute. Used at sub-default
+// weights (460 body / 540 display) via Tailwind `font-[460]` / `font-[540]`.
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
@@ -41,7 +42,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${hanken.variable} ${mono.variable} h-full antialiased`}
+      className={`${inter.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-night text-ink">
         <SiteNav />

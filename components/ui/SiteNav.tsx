@@ -25,7 +25,7 @@ export function SiteNav() {
               </li>
             ))}
           </ul>
-          <ButtonLink href="/#waitlist" className="px-4 py-2">
+          <ButtonLink href="/#waitlist" variant="pill" className="px-4 py-2">
             Join the waitlist
           </ButtonLink>
         </nav>

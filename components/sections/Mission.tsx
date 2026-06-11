@@ -7,7 +7,7 @@ export function Mission() {
     <section className="border-b border-line py-20 sm:py-28">
       <Container>
         <Reveal className="max-w-3xl">
-          <p className="text-[clamp(1.5rem,3.2vw,2.2rem)] font-medium leading-[1.3] text-ink">
+          <p className="text-[clamp(1.5rem,3.2vw,2.2rem)] font-[460] leading-[1.3] tracking-[-0.01em] text-ink">
             The night shift has measurable costs to your sleep, metabolism,
             mood, and safety. You can&apos;t opt out of the biology, but you can
             stop flying blind.{" "}
