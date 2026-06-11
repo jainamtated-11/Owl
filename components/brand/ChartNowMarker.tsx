@@ -5,9 +5,11 @@ import { PAD, plot, alertness, x, y, toAxisHour } from "@/lib/circadian";
 
 /**
  * Live "you are here" marker. Plots the current local time onto the alertness
- * curve and updates each minute, tying the "someone is on shift right now" line
- * to the evidence. Renders nothing until mounted (avoids hydration mismatch);
- * the static chart is fully legible without it.
+ * curve and updates every second, tying the "someone is on shift right now"
+ * line to the evidence. Renders nothing until mounted (avoids hydration
+ * mismatch); the static chart is fully legible without it. The group is
+ * aria-hidden so the per-second updates don't spam screen readers (the chart's
+ * own aria-label already describes the live marker).
  */
 export function ChartNowMarker() {
   const [hour24, setHour24] = useState<number | null>(null);
@@ -15,10 +17,12 @@ export function ChartNowMarker() {
   useEffect(() => {
     const update = () => {
       const d = new Date();
-      setHour24(d.getHours() + d.getMinutes() / 60);
+      setHour24(
+        d.getHours() + d.getMinutes() / 60 + d.getSeconds() / 3600,
+      );
     };
     update();
-    const id = setInterval(update, 60_000);
+    const id = setInterval(update, 1000);
     return () => clearInterval(id);
   }, []);
 
@@ -29,7 +33,7 @@ export function ChartNowMarker() {
   const cy = y(alertness(hour24));
 
   return (
-    <g>
+    <g aria-hidden="true">
       <line
         x1={cx}
         y1={PAD.top}

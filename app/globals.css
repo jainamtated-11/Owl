@@ -9,23 +9,25 @@
   leading — Superhuman's typographic signature. All text meets WCAG AA.
 */
 :root {
-  --night: #0f0d20; /* page canvas, deep indigo */
-  --night-2: #1b1938; /* raised sections / hero (Superhuman primary) */
-  --surface: #232149; /* cards */
-  --surface-2: #2b2858; /* card hover / inset */
-  --line: #322e4d; /* hairline borders */
-  --line-strong: #463f63; /* emphasized rule */
+  --night: #0b0b0b; /* page canvas — neutral black from the hero, not indigo */
+  --night-2: #000000; /* raised sections / hero */
+  --surface: #141518; /* cards — lifted off black so they separate */
+  --surface-2: #1f2024; /* card hover / inset */
+  --line: #2a2b30; /* hairline borders (was #000 = invisible) */
+  --line-strong: #3a3b42; /* emphasized rule */
 
-  --ink: #f3f2f9; /* primary text */
-  --ink-2: #bcbac9; /* secondary text (Superhuman on-dark-mute) */
-  --muted: #8b88a3; /* captions / labels (AA on canvas) */
+  --ink: #ffffff; /* primary text — the hero title white */
+  --ink-2: #a8abb4; /* secondary text — neutral, purple tint dropped */
+  --muted: #6b6e76; /* captions / labels */
 
-  --violet: #c9b4fa; /* brand / action (Superhuman violet-soft) */
-  --violet-deep: #ab8ff4; /* hover / pressed */
-  --teal-deep: #0e3030; /* closing CTA band */
-  --teal-mid: #155555; /* nested chrome in the band */
-  --on-teal-mute: #9cc2c2; /* muted text on teal */
-  --amber: #f4bd57; /* evidence / data only */
+  --violet: #7fa0f0; /* brand / action — hero blue, softened to read on black */
+  --violet-deep: #5179e4; /* hover / pressed — core hero blue */
+  --cyan: #7ce6fb; /* NEW: glow / focus / hover accent — the hero's signature streak */
+
+  --teal-deep: #0a2e38; /* closing CTA band — deep cyan instead of teal */
+  --teal-mid: #114553; /* nested chrome in the band */
+  --on-teal-mute: #8fc7d6; /* muted text on the band */
+  --amber: #f79a64; /* evidence / data only — hero orange */
 
   --background: var(--night);
   --foreground: var(--ink);
@@ -98,6 +100,22 @@ h3 {
       rgba(120, 176, 235, 0.09),
       transparent 60%
     );
+  /* slightly oversized so the night sky can drift vertically (see sky-drift) */
+  background-size: 100% 132%;
+  background-position: 50% 0%;
+}
+
+/* Headline clip-mask: each line rises from behind an overflow-hidden edge.
+   Structural (always on); the rise is gated to no-preference below, so the
+   static fallback shows every line in place. */
+.hl-clip {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.hl-line {
+  display: block;
 }
 
 /* The data system: monospaced, tabular, for numbers and labels only. */
@@ -130,6 +148,30 @@ h3 {
 @media (prefers-reduced-motion: no-preference) {
   .reveal-enter {
     animation: reveal-enter 0.7s var(--ease-out-quint) both;
+  }
+  /* headline lines rise out from their clip masks, staggered via inline delay */
+  .hl-line {
+    animation: hl-rise 0.9s var(--ease-out-quint) both;
+  }
+  /* the night sky breathes — very slow vertical drift */
+  .hero-atmosphere {
+    animation: sky-drift 30s ease-in-out infinite alternate;
+  }
+}
+@keyframes hl-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes sky-drift {
+  from {
+    background-position: 50% 0%;
+  }
+  to {
+    background-position: 50% 24%;
   }
 }
 

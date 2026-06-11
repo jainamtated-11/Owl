@@ -28,6 +28,10 @@ const curve = samples
   .map((p, i) => `${i === 0 ? "M" : "L"}${x(p.hour).toFixed(1)} ${y(p.a).toFixed(1)}`)
   .join(" ");
 
+// Closed area under the curve, down to the baseline — fades up after the draw.
+const baseY = PAD.top + plot.h;
+const areaD = `${curve} L ${(PAD.left + plot.w).toFixed(1)} ${baseY.toFixed(1)} L ${PAD.left.toFixed(1)} ${baseY.toFixed(1)} Z`;
+
 const SHIFT_START = 22;
 const SHIFT_END = 30;
 const trough = samples.reduce((lo, p) => (p.a < lo.a ? p : lo), samples[0]);
@@ -72,6 +76,9 @@ export function CircadianChart() {
           </g>
         ))}
 
+        {/* under-curve area — fades up after the curve draws in */}
+        <path d={areaD} fill="var(--color-violet)" opacity="0.06" className="area-fill" />
+
         {/* alertness curve */}
         <path
           d={curve}
@@ -88,6 +95,10 @@ export function CircadianChart() {
 
         {/* circadian low marker */}
         <line x1={x(trough.hour)} y1={y(trough.a)} x2={x(trough.hour)} y2={PAD.top + plot.h} stroke="var(--color-amber)" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
+        <circle cx={x(trough.hour)} cy={y(trough.a)} r="7" fill="var(--color-amber)" opacity="0.16" aria-hidden="true">
+          <animate attributeName="r" values="4.5;10;4.5" dur="3.6s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.22;0;0.22" dur="3.6s" repeatCount="indefinite" />
+        </circle>
         <circle cx={x(trough.hour)} cy={y(trough.a)} r="4.5" fill="var(--color-amber)" />
         <text x={x(trough.hour)} y={y(trough.a) + 24} textAnchor="middle" className="data" fontSize="11" fill="var(--color-amber)">
           circadian low · 04:30
@@ -96,7 +107,13 @@ export function CircadianChart() {
         {/* live "you, now" marker */}
         <ChartNowMarker />
 
-        <style>{`@keyframes draw-curve { to { stroke-dashoffset: 0; } }`}</style>
+        <style>{`
+          @keyframes draw-curve { to { stroke-dashoffset: 0; } }
+          @keyframes area-in { from { opacity: 0; } to { opacity: 0.06; } }
+          @media (prefers-reduced-motion: no-preference) {
+            .area-fill { animation: area-in 0.8s var(--ease-out-quint) 1.2s both; }
+          }
+        `}</style>
       </svg>
       <figcaption className="mt-3 text-sm text-muted">
         Alertness tracks your body clock, bottoming out near 04:30, right when
