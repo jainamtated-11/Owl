@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { IntroOverlay } from "@/components/brand/IntroOverlay";
 import { SiteNav } from "@/components/ui/SiteNav";
 import { SiteFooter } from "@/components/ui/SiteFooter";
 
@@ -45,6 +46,7 @@ export default function RootLayout({
       className={`${inter.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-night text-ink">
+        <IntroOverlay />
         <SiteNav />
         <main className="flex-1">{children}</main>
         <SiteFooter />
