@@ -7,7 +7,7 @@ export function WaitlistSection() {
   return (
     <section id="waitlist" className="scroll-mt-16 py-20 sm:py-28">
       <Container>
-        <Reveal className="mx-auto max-w-xl text-center">
+        <Reveal className="max-w-xl">
           <h2 className="text-[clamp(1.8rem,4vw,2.6rem)] font-bold leading-tight text-ink">
             Be first through the door.
           </h2>

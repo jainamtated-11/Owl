@@ -1,6 +1,5 @@
 import { Logo } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/Button";
-import { Container } from "@/components/ui/Container";
 
 const links = [
   { href: "/#taboo", label: "Taboo or Not" },
@@ -11,7 +10,7 @@ const links = [
 export function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-night">
-      <Container className="flex h-16 items-center justify-between">
+      <div className="flex h-16 w-full items-center justify-between px-5 sm:px-8">
         <Logo />
         <nav className="flex items-center gap-7">
           <ul className="hidden items-center gap-7 sm:flex">
@@ -30,7 +29,7 @@ export function SiteNav() {
             Join the waitlist
           </ButtonLink>
         </nav>
-      </Container>
+      </div>
     </header>
   );
 }
