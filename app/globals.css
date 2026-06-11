@@ -82,19 +82,21 @@ h3 {
   text-wrap: balance;
 }
 
-/* The violet-sky atmospheric backdrop — Superhuman's hero depth medium. */
+/* The violet-sky atmospheric backdrop — Superhuman's hero depth medium.
+   Kept symmetric and even left-to-right so the hero reads as one consistent
+   color (a gentle top-down wash for depth, not a lopsided glow). */
 .hero-atmosphere {
   background-color: var(--night-2);
   background-image:
-    radial-gradient(
-      120% 95% at 72% -10%,
-      rgba(171, 143, 244, 0.26),
-      transparent 55%
+    linear-gradient(
+      180deg,
+      rgba(165, 140, 240, 0.13),
+      transparent 60%
     ),
     radial-gradient(
-      80% 70% at 96% 4%,
-      rgba(120, 176, 235, 0.16),
-      transparent 50%
+      130% 80% at 50% -25%,
+      rgba(120, 176, 235, 0.09),
+      transparent 60%
     );
 }
 
