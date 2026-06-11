@@ -17,7 +17,7 @@ export function TabooCard({ card }: { card: TabooCardData }) {
       type="button"
       onClick={() => setFlipped((f) => !f)}
       aria-pressed={flipped}
-      className="group h-64 w-full text-left [perspective:1200px] focus-visible:outline-none"
+      className="group h-64 w-full text-left transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 [perspective:1200px] focus-visible:outline-none"
     >
       <div
         className="relative h-full w-full transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d]"
